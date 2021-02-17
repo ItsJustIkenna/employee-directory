@@ -1,17 +1,29 @@
-import React from 'react';
+import React from "react";
+import TableInfo from "../TableInfo/TableInfo";
 
-const Table = () => {
-    return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    );
+const Table = ({ headings, sort, filteredEmp }) => {
+  return (
+    <div>
+      <table>
+        <thead>
+          <tr>
+            {headings.map(({ name, width }) => {
+              return (
+                <th
+                  key={name}
+                  style={{ width }}
+                  onClick={() => sort(name.toLowerCase())}
+                >
+                  {name}
+                </th>
+              );
+            })}
+          </tr>
+        </thead>
+        <TableInfo employee={filteredEmp} />
+      </table>
+    </div>
+  );
 };
 
 export default Table;

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
+import SearchBox from "../SearchBox/SearchBox";
+import Table from "../Table/Table";
 
 const TableData = () => {
   const [employee, setEmployee] = useState({
-    employees: [],
-    filteredEmployees: [],
+    employees: [{}],
+    filteredEmployees: [{}],
     order: "descend",
     headings: [
       { name: "Image", width: "15%", order: "descend" },
@@ -42,30 +44,20 @@ const TableData = () => {
   };
 
   const sort = (heading) => {
-    if (employee.order === "ascend") {
-      setEmployee({
-        ...employee,
-        order: "descend",
-      });
-    } else {
+    if (employee.order === "descend") {
       setEmployee({
         ...employee,
         order: "ascend",
       });
+    } else {
+      setEmployee({
+        ...employee,
+        order: "descend",
+      });
     }
 
     const compare = (a, b) => {
-      if (employee.order === "ascend") {
-        if (a[heading] === undefined) {
-          return 1;
-        } else if (b[heading] === undefined) {
-          return -1;
-        } else if (heading === "name") {
-          return a[heading].first.localeCompare(b[heading].first);
-        } else {
-          return a[heading] - b[heading];
-        }
-      } else {
+      if (employee.order === "descend") {
         if (a[heading] === undefined) {
           return 1;
         } else if (b[heading] === undefined) {
@@ -74,6 +66,16 @@ const TableData = () => {
           return b[heading].first.localeCompare(a[heading].first);
         } else {
           return b[heading] - a[heading];
+        }
+      } else {
+        if (a[heading] === undefined) {
+          return 1;
+        } else if (b[heading] === undefined) {
+          return -1;
+        } else if (heading === "name") {
+          return a[heading].first.localeCompare(b[heading].first);
+        } else {
+          return a[heading] - b[heading];
         }
       }
     };
@@ -85,7 +87,18 @@ const TableData = () => {
     });
   };
 
-  return <div></div>;
+  return (
+    <>
+      <SearchBox handleSearch={handleSearch} />
+      <div>
+        <Table
+          headings={employee.headings}
+          sort={sort}
+          filteredEmp={employee.filteredEmployees}
+        />
+      </div>
+    </>
+  );
 };
 
 export default TableData;

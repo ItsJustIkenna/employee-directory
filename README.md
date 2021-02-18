@@ -5,6 +5,14 @@
 
 This application allows users to view the entire employee directory and sort them by name and search for different employees
 
+## Screenshot
+
+![Capture6.PNG](Capture6.PNG)
+
+## Link to Deployed Site
+
+https://itsjustikenna.github.io/employee-directory/
+
 ## Table Of Contents
 
 * [Installation](#installation)
